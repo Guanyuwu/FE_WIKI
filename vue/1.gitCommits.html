@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue.js github commits example</title>
+    <style>
+        #app {
+            font-family: 'Helvetica', Arial, sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: #f66;
+        }
+
+        li {
+            line-height: 1.5em;
+            margin-bottom: 20px;
+        }
+        .message{
+            color:darkorchid
+        }
+        .author,
+        .date {
+            font-weight: bold
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>latest Vue.js Commits </h1>
+        <template v-for=" branch in branches ">
+            <!--  @change="handleChange" 这里为什么没有用这个？ 因为用watch 代替了 -->
+            <input type="radio" :value="branch" name="branch" :id="branch" v-model="currentBranch">
+            <label :for="branch">{{branch}}</label>
+        </template>
+        <p>vuejs@vue {{currentBranch}}</p>
+        <ul>
+            <li v-for=" record in commits ">
+                <a :href="record.html_url" target="_blank">{{record.sha.slice(0,7)}}</a>
+                -
+                <span class="message"> {{record.commit.message | truncate}}</span>
+                by
+                <span class="author">
+                    <a :href="record.html_url" target="_blank"> {{record.commit.author.name}}</a>
+                </span>
+                at
+                <span class="date">{{ record.commit.author.date | formatDate }}</span>
+            </li>
+        </ul>
+        <!-- <template id="tl"> <h1>123123</h1></template> -->
+    </div>
+</body>
+<script>
+    var apiURL = 'https://api.github.com/repos/vuejs/vue/commits?per_page=3&sha='
+    var app = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                branches: ['master', 'dev'],
+                commits: null,
+                currentBranch: 'master'
+            }
+        },
+        created() {
+            this.fetchData()
+        },
+        watch: {
+            currentBranch: 'fetchData'
+        },
+        filters: {
+            formatDate: function (date) {
+                return date.replace(/T|Z/g, ' ') 
+            },
+            // 截断
+            truncate: function(str){
+                var newLine = str.indexOf('\n') //为什么不直接取布尔值？ 因为后面还要根据index来截断
+                return newLine >0 ? str.slice(0,newLine):str
+            }
+        },
+        methods: {
+            fetchData: function () {
+                var xhr = new XMLHttpRequest()
+                var self = this
+
+                xhr.open('GET', apiURL + self.currentBranch)
+                xhr.onload = function () {
+                    self.commits = JSON.parse(xhr.responseText)
+                }
+                xhr.send()
+            }
+        }
+    })
+    /*
+    流程:
+    1引入必要依赖环境 vue.js
+    2布局 定义基本data 绑定数据和结构 要求要对vue语法熟悉  API用法熟悉
+    3请求数据 （多个tab的时候 通过watch 解决请求数据的问题 不用@change）
+    4filters 局部指令修改要展示的数据
+    5正则
+    6
+    优化的地方 切换不同radio时候 可以加loading按钮
+
+    用到的知识点:
+    1ajax
+    2html css
+    3vue 3.1局部filter  3.2v-for  3.3v-bind  3.3{{}}  3.4v-model  3.5watch 3.6生命周期
+    4JSON.parse
+
+    //怎么取出template 里标签的值
+    h5  tempalte 标签默认 样式为 display: none
+    var tlDom =  document.getElementById('tl')
+    console.log(tlDom)
+    console.log(typeof tlDom.content) //object
+    console.log(typeof window) //object
+
+    console.log(Array.isArray(tlDom.content.querySelectorAll('h1'))) // NodeList 不是数组 取出第一个h1的话 arrayLike[0]
+    console.log(tlDom.content.querySelectorAll('h1')[0].innerHTML)
+    */
+</script>
+
+</html>
