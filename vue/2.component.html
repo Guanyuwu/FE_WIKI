@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 直接写 没定义插槽 不生效 阿斯顿 这三个不会展示出来的 -->
+        <simple-head>阿斯顿</simple-head>
+        <simple-head></simple-head>
+        <simple-head-by-id></simple-head-by-id>
+
+       
+        <non-slot><h1>qweqweqwe我是匿名插槽填充进组件内部的</h1></non-slot>
+
+
+        <hr>
+        <diy-heading :level="1">hello diy head! h1</diy-heading>
+        <diy-heading :level="2">hello diy head! h2</diy-heading>
+        <diy-heading :level="3">hello diy head! h3</diy-heading>
+        <diy-heading :level="4">hello diy head! h4</diy-heading>
+    </div>
+
+    <script type="text/x-template" id="anchored-heading-template">
+        <h1 v-if="level === 1">
+          <slot></slot>
+        </h1>
+        <h2 v-else-if="level === 2">
+          <slot></slot>
+        </h2>
+        <h3 v-else-if="level === 3">
+          <slot></slot>
+        </h3>
+        <h4 v-else-if="level === 4">
+          <slot></slot>
+        </h4>
+        <h5 v-else-if="level === 5">
+          <slot></slot>
+        </h5>
+        <h6 v-else-if="level === 6">
+          <slot></slot>
+        </h6>
+      </script>
+
+    <script type="text/x-template" id="byId">
+        <h2>i am a simple head byId</h2>
+    </script>
+
+
+    <script type="text/x-template" id="bySolt">
+       <div>
+            <slot></slot>
+       </div>
+    </script>
+</body>
+<script>
+    //1 这种 template 后面可以跟 包裹html的字符串
+    Vue.component('simple-head', {
+        template: '<h1>hello i am a simple head by template</h1>'
+    })
+    //2 这种 template 后面可以跟 #id  或则.class
+    Vue.component('simple-head-by-id', {
+        template: '#byId'
+    })
+
+
+    //匿名插槽 实现结构上写完自定义标签后 标签里面还可以写要展示的内容 不定义插槽的话 直接写是不生效的
+    Vue.component('non-slot',{
+        template:'#bySolt'
+    })
+    Vue.component('diy-heading', {
+        template: '#anchored-heading-template',
+        props: {
+            level: {
+                type: Number,
+                required: true
+            }
+        }
+    }
+    )
+    //作用在哪里 不加这个 diy-heading不会渲染成h1-6 还是显示 diy-heading
+    new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>
