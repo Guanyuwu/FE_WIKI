@@ -26,6 +26,7 @@
         <ul>
             <li v-for="item in items">{{item}}
                 <ul v-if="funcs[item]">
+                    <h3>{{item}}{{str2}}</h3>
                     <li v-for="detail in  funcs[item]" style="margin-bottom:20px"> 位置是：
                         <strong class="conPos">{{detail.pos}}</strong> ;
                         <br/>对应的内容是：
@@ -46,7 +47,7 @@
         data: {
             items: ['头部', '左侧', '右侧', '详情页'],
             str1: '结构划分：',
-            str2: '不同结构下的功能有：',
+            str2: '结构下的功能有：',
             funcs:
                 {
                     '头部': [
