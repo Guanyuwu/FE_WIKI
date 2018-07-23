@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <style>
+        .conDetail {
+            font: 1em sans-serif;
+            color: rgb(238, 175, 210);
+        }
+
+        .conPos {
+            color: yellowgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- TODO treeList -->
+    <div id="app">
+        <h1>{{str1}}</h1>
+        <ul>
+            <li v-for="item in items">{{item}}
+                <ul v-if="funcs[item]">
+                    <li v-for="detail in  funcs[item]" style="margin-bottom:20px"> 位置是：
+                        <strong class="conPos">{{detail.pos}}</strong> ;
+                        <br/>对应的内容是：
+                        <strong class="conDetail">{{detail.con}}</strong> ;
+                        <br/> 对应的操作是：
+                        <strong class="conDetail">{{detail.action}}</strong>
+                        </strong>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            items: ['头部', '左侧', '右侧', '详情页'],
+            str1: '结构划分：',
+            str2: '不同结构下的功能有：',
+            funcs:
+                {
+                    '头部': [
+                        {
+                            pos: 'left',
+                            con: '公司名称 home图标',
+                            action: '点击会返回首页'
+                        },
+                        {
+                            pos: 'right',
+                            con: '员工信息 下拉框',
+                            action: '点击下拉框会出现退出登陆选项'
+                        }
+                    ],
+                    '左侧': [
+                        {
+                            pos: '上部',
+                            con: '个人信息',
+                            action: 'hover时背景变清晰，背景图稍微扩大，点击时会进入详情页'
+                        },
+                        {
+                            pos: '中部',
+                            con: '签到展示日历（各种情况对应不同展示  迟到、正常）还有查看全部考勤记录的按钮 作为详情的入口',
+                            action: '迟到-->点击对应的日期会小列表展示详情 正常-->无'
+                        },
+                        {
+                            pos: '中部',
+                            con: '各种可操作的入口（电子合同、工资条、假期日历等）',
+                            action: '点击进入对应的详情页面'
+                        },
+                        {
+                            pos: '底部',
+                            con: '团队假勤',
+                            action: '点击进入详情页面'
+                        },
+                    ],
+                    '右侧': [
+                        {
+                            pos: '上部',
+                            con: '公告',
+                            action: '点击下方展开箭头 展示更多公告消息 没有更多显示没有更多'
+                        },
+                        {
+                            pos: '中部',
+                            con: '待我审批 右侧有查看全部记录的按钮',
+                            action: '列表无数据显示：没有记录了；点击按钮查看全部记录详情页'
+                        },
+                        {
+                            pos: '中部',
+                            con: '发起审批（请假、公出、晚餐预定、转正申请等）',
+                            action: '点击进入对应的详情页面'
+                        },
+                        {
+                            pos: '底部',
+                            con: '我发起的审批 下方列表展示部分数据 （发起人 时间 发起内容 状态）右侧按钮查看详情页面',
+                            action: '点击右侧按钮进入详情页面'
+                        },
+                    ],
+                    '详情页': [
+                        {
+                            pos: '待完善',
+                            con: '待完善',
+                            action: '待完善'
+                        }
+                    ],
+                }
+
+        }
+    })
+
+        // // 全局注册 TODO 熟悉全局和局部注册组件的方法 https://cn.vuejs.org/v2/guide/components-registration.html
+        // new Vue('strongText',{
+        // template:'<h1>hello world</h1>',
+        // props:{
+        //     con:{
+        //         type:String,
+        //         required:true
+        //     }
+        // }
+    // })
+
+    // 小结：
+    //1vue知识点 v-for {{}} data上面数据的定义 如何定义
+    //2待完善 局部组件如何注册 怎么写？ 
+</script>
+
+</html>
