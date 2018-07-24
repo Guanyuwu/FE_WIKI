@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <style>
+        .codeWrap {
+            background-color: beige;
+            color: #E91E63;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{str}}</h1>
+        <h2>{{data}}</h2>
+        <h3>
+            除了可以传配置 vue实例暴露了一些方法
+
+            <pre class="codeWrap">
+                var vm = new Vue({
+                    el:'#app',
+                    data:{
+                        sss:'ssss'
+                    }
+                })
+
+                vm.$data.data == data // true
+                vm.$el  == docuemnt.getElementById('app')
+
+                vm.$watch('data.s',function(newVal, oldVal){
+                    //第一个参数可以是一个对象 也可以是一个对象的key 
+                })
+            </pre>
+        </h3>
+    </div>
+</body>
+<script> 
+
+    var tempData = { 'a': 'a' }
+    //  一个实例 就是初始化一个Vue对象 里面传入对应的参数
+    var vm = new Vue({
+        // el:'#app',
+        el: document.getElementById('app'),
+        data: function () {
+            return {
+                str: 'hello vue',
+                data: tempData
+            }
+        },
+        watch: {
+            'data.a': function (newVal, oldVal) {
+                console.log(newVal, oldVal)
+            }
+        }
+    })
+
+    var bo = vm.data.a == tempData.a
+    console.log(vm.$data)// 整个data大对象
+    console.log(vm.$data.data == tempData) // true
+    console.log(vm.$el == document.getElementById('app'))
+    console.log(bo)
+    vm.data.b = 'ssss'//这样添加的数据没有对应的getter setter
+
+    console.log(vm.$set == Vue.set)// true
+    //语法  增加 vm.$set(data,key,value)  Vue.set(data,key,value)
+    //     删除 vm.$delete(vm.data,'sss')
+    //增加
+    Vue.set(vm.data, 'sss', 'newValue')
+
+    //删除
+    vm.$delete(vm.data, 'sss')
+
+    console.log(vm.data)
+
+    //不想被更改怎么办？
+    Object.freeze(tempData)
+    tempData.v = 'asdasdasdasd'
+    console.log(tempData)
+    /*
+    小结： 下面说的都是配置参数里面的可以传的key 对应的value以及用法会细说
+    0vue实例在哪生效？
+        el:'#app'
+    1数据在哪定义？
+        data上面
+        props上面(外部传进来的值 子组件内部接收)
+        computed上面（data对应值的缓存 data对应的值变了 这里跟着变）
+    // 2数据在哪展示？
+    //     字符串插值 {{}}    
+    3方法在哪定义？    
+        methods:{
+            sss(){
+
+            },
+            sss2{
+
+            }
+        }
+    4方法在哪用？
+        <button @click='sss'  >点我</button> 
+    5展示前处理展示的数据？
+        filter(可全局注册 也可以局部注册 就是在单个组件内部传入 filter这个key)
+    6怎么检测数据变化？
+        用watch
+        watch:{
+            'str':function(newVal,oldVal){
+
+            }
+        }
+    7什么时候请求数据或者移除事件？
+        组件的生命周期里面
+        https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA
+    8怎么保证dom渲染完成？
+        this.$nextTick(function(){
+            
+        })  
+    9可以自定义指令
+        directives 可全局也可以局部注册
+
+    10当前组件使用别的组件
+        component
+    11代码复用
+        mixins
+    12provide/inject 高阶组件库里面使用
+    13functional 选项
+        Causes a component to be stateless (no data) and instanceless (no this context). They are only a render function that returns virtual nodes making them much cheaper to render. jsx的时候会用到 再细看 
+                      
+    参考：
+    https://cn.vuejs.org/v2/guide/instance.html
+    https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA
+    */
+</script>
+
+</html>

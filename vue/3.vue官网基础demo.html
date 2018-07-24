@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app1">
+        <!-- {{}} 数据展示的地方  1文本插值-->
+        <h1>1文本插值</h1>
+        <h3>{{str}}</h3>
+        <hr>
+
+        <!-- 2绑定元素 -->
+        <h1>2绑定元素</h1>
+        <span :title="dataTitle"> 鼠标悬停几秒钟查看此处动态绑定的提示信息</span>
+        <hr>
+
+        <!-- 3条件与循环 -->
+        <h1>3.1条件显示隐藏</h1>
+        <!-- v-if -->
+        <button @click='toggleSeen'>点击切换</button>
+        <p v-if="seen">你能看见我 v-if控制 </p>
+        <p>当前seen的值是：{{seen}}</p>
+
+        <!-- v-show -->
+        <button @click='toggleSeenShow'>点击切换</button>
+        <p v-show="seenShow">你能看见我 v-show控制 </p>
+        <p>当前seenShow的值是：{{seen}}</p>
+        <h1>3.2循环</h1>
+        <ol>
+            <button @click="pushAn">增加一项</button>
+            <button @click="clear">恢复</button>
+            <li v-for="(todo,index) in todos" :key='index'>{{todo.text}}</li>
+        </ol>
+        <hr>
+
+        <!-- 4处理用户输入 -->
+        <h1>4处理用户输入</h1>
+        <p>{{message}}</p>
+        <button @click="reverseMsg">逆转字符串</button>
+        <br/>
+        <input v-model="msg">
+        <p>{{msg}}</p>
+        <hr>
+
+        <!-- 5组件化应用构建 -->
+        <h1>5组件化应用构建</h1>
+        <p>几乎任意类型的应用界面都可以抽象为一棵组件树，再把组件树拆分成一个组件，一个组件本质上是一个拥有预定义选项的一个 Vue 实例</p>
+        <ol>
+            <!-- 展示的时候 这么写这个组件 -->
+            <todo-item></todo-item>
+        </ol>
+        <h1>但是现在不能传值 通过注册组件时的props选项让他能接收一个值</h1>
+        <ol>
+            <todo-item-prop :todo="item" v-for="item in diyTodos" :key="item.id"></todo-item-prop>
+        </ol>
+    </div>
+</body>
+<script>
+    //注册一个组件
+    Vue.component('todo-item', {
+        template: '<li>待办事项</li>'
+    })
+    //注册一个组件 子组件通过props与父组件更好的解耦 我们现在可以进一步改进 <todo-item> 组件，提供更为复杂的模板和逻辑，而不会影响到父单元。
+    Vue.component('todo-item-prop', {
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
+    })
+
+    /*
+        使用组件的应用模版 应该长这个样子
+        <div id="container">
+            <app-head></app-head>
+            <main>
+                <app-sidebar></app-sidebar>
+                <app-content></app-content>
+            </main>
+        </div>
+    */
+    // 声明式渲染
+    var ap = new Vue({
+        el: '#app1',//指定vue 在哪个dom 范围生效
+        data: function () { //定义要展示数据的地方
+            return {
+                str: 'hello vue!    vue 是一个构建用户界面渐进式的框架，怎么理解渐进式？1当你用一部分vue用来展示的时候 你可以data上面定义 {{}}用于输出定义好的数据 2当你全部用vue的时候也可以用@+事件名字来跟对应的元素添加事件 所有的方法统一在传入的参数methods里面统一管理 写起来很舒服。3当你状态管理 页面跳转比较多比较复杂的时候 vuex vue-router是你更好的选择，这时候怎么快速找到对应的组件？Devtools(浏览器插件 用于帮助查看状态和辨识当前组件是哪个组件的)，所以根据不同的需求，你可以自己觉得让vue介入的百分比 十分灵活 这是也为啥叫渐进式框架的原因',
+                dataTitle: '页面加载于' + new Date().toLocaleDateString(),
+                seen: true,
+                seenShow: true,
+                todos: [
+                    { text: '学习 JavaScript' },
+                    { text: '学习 Vue' },
+                    { text: '整个牛项目' }
+                ],
+                message: 'hello vue.js!',
+                msg: '我是双向绑定的 通过v-model',
+                diyTodos: [
+                    { id: 0, text: '蔬菜' },
+                    { id: 1, text: '奶酪' },
+                    { id: 2, text: '随便其它什么人吃的东西' }
+                    ]
+            }
+        },
+        methods: {
+            toggleSeen() {
+                this.seen = !this.seen
+            },
+            toggleSeenShow() {
+                this.seenShow = !this.seenShow
+            },
+            pushAn() {
+                this.todos.push({ text: "js" })
+            },
+            clear() {
+                // 不这么做的话 可以最开始设置一个数组
+                this.todos = [
+                    { text: '学习 JavaScript' },
+                    { text: '学习 Vue' },
+                    { text: '整个牛项目' }
+                ]
+            },
+            reverseMsg() {
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+    })
+    // ap.data是没有值的 直接实例.str就能取到
+    // 控制台里面 ap.str = 'newStr' 数据变了 视图就跟着变了 这是vue实现的
+    // console.log(ap.str)
+
+
+    /*
+    小结： 
+    使用vue流程
+    1引入vue
+    2初始化vue 传入对象参数 el:指定vue作用的范围 data:要展示的数据定义的地方 data是函数保证每个实例有自己的作用域 不污染别的
+    3页面上指定对应id的容器 
+    4{{}}用于data上面数据的展示
+    
+    参考：
+    vue基础语法：
+    https://cn.vuejs.org/v2/guide/#%E8%B5%B7%E6%AD%A5
+    渐进式框架的理解：
+    https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247485737&amp;idx=1&amp;sn=14fe8a5c72aaa98c11bf6fc57ae1b6c0&source=41#wechat_redirect
+    https://www.zhihu.com/question/51907207?rf=55052497
+    */
+</script>
+
+</html>
