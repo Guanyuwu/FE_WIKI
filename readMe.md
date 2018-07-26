@@ -8,5 +8,6 @@
   - 保持持续学习
   - 结合vue文档和Dash细化学习vue基础
   - Dash:https://kapeli.com/dash
+  - 学习oc基本语法、学习foundation里面的基本常用类型、学习常用ui组件
 
 > 长期目标：vue组件化的方式实现一个webapp 一个后台管理系统
