@@ -1,4 +1,4 @@
-### first commit  20180717 by guanyu
+### first commit  20180720 by guanyu
 
 ## 下地干活 光说不练假把式 目的：记录不同技术栈的练习 总结知识点 夯实js基础
 
@@ -10,4 +10,4 @@
   - Dash:https://kapeli.com/dash
   - 学习oc基本语法、学习foundation里面的基本常用类型、学习常用ui组件
 
-> 长期目标：vue组件化的方式实现一个webapp 一个后台管理系统
+> 长期目标：
