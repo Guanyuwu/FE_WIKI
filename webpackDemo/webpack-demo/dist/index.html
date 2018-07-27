@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>起步</title>
+    <!-- 不使用cdn 引入loadsh -->
+    <!-- <script src="https://unpkg.com/lodash@4.16.6"></script> -->
+</head>
+
+<body>
+    <!-- 多了dist文件 这会儿这个也不需要了 -->
+    <!-- <script src="./src/index.js"></script> -->
+
+    <!-- 下面三种情况只能同时存在一种 -->
+
+    <!-- 情况2 实验 这里为啥叫main?  试着改成随便起的名字sss看看生不生效 实验后不生效 每次都生成 main.js -->
+    <!-- <script src="sss"></script> -->
+
+    <!-- 情况1  没写webpack.config.js的情况   -->
+    <!-- <script src="main.js"></script> -->
+
+    <!--情况3  写了webpack.config.js的情况  写了这个上面的main.js  为啥叫这个？bundle.js 因为webpack.config.js output里面  filename: 'bundle.js' 指定了叫这个  dist下面能有这个文件是因为运行了这个命令 ： npx webpack --config webpack.config.js
+    运行一次就会重新生成一次 替换掉原来的重名文件  怎么知道是引入bundle.js成功了？1看浏览器页面输出值 2看浏览器控制台的sources里面 index.html里面引入了bundle.js 而且平级确实有bundle.js 
+    但是每次build都输入这么长的命令 很麻烦 到package.json srcipts里面配置一下别名 简化操作   "build"（你起的名字）:"webpack"（实际要运行的命令）
+    配置完后怎么执行？ 当前目录下输入 npm run + 你起的名字 就是 npm run build 即可-->
+    <script src="bundle.js"></script>
+
+    <!-- 新建的dist目录 将index.html拿到这里 -->
+</body>
+
+</html>
