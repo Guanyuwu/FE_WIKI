@@ -78,13 +78,31 @@ var a = new X({s:'ss'});
 **粗体啊**
 ***加粗斜体啊***
 
-### 8TODO List
-- [] 1js
-- [] 2vue
-- [] 3element-ui
-- [] react
-- [] node
+### 8TODO List 未完成：- [ ] xxx  ;  完成的 - [x] sss
+- [ ] 1js
+- [ ] 2vue
+- [ ] 3element-ui
+- [ ] react
+- [ ] node
 - [x] objective-c
-  - [] 基本语法
+  - [ ] 基本语法
   - [x] foundation.h
   - [x] UIKit
+
+### 怎么显示一个项目文件结构？ 为什么要显示 因为一个项目熟悉结构是基础 不然没发往下看别人的项目
+brew （homebrew）[homebrew官网](https://brew.sh/)
+用到的包 tree brew install tree
+man tree (查看这个包的菜单  开始试了tree -help 没效果才试这个命令)
+```
+tree  [-acdfghilnpqrstuvxACDFQNSUX]  [-L  level [-R]] [-H baseHREF] [-T
+title] [-o filename] [--nolinks] [-P pattern] [-I  pattern]  [--inodes]
+[--device] [--noreport] [--dirsfirst] [--version] [--help] [--filelimit
+#]  [--si]  [--prune]  [--du]  [--timefmt  format]  [--matchdirs]  [--]
+[directory ...]
+```
+出来上面的命令 才知道 可以 tree --help 两个--
+
+输出项目目录结构 就在根目录下执行下面命令
+```
+tree -L 3 -I "node_modules"
+```
