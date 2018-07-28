@@ -78,16 +78,16 @@ var a = new X({s:'ss'});
 **粗体啊**
 ***加粗斜体啊***
 
-### 8TODO List 未完成：- [ ] xxx  ;  完成的 - [x] sss
-- [ ] 1js
-- [ ] 2vue
-- [ ] 3element-ui
-- [ ] react
-- [ ] node
-- [x] objective-c
-  - [ ] 基本语法
-  - [x] foundation.h
-  - [x] UIKit
+### 8TODO List 未完成：- [这里要空格 ] xxx   ;  完成的 - [x] sss
+- [x] 1js
+- [x]2vue我没空格
+- [x] 3element-ui
+- [ x] react
+- [x ] node
+- [ ] objective-c
+  - [ x] 基本语法
+  - [ ] foundation.h
+  - [] UIKit我里面没空格
 
 ### 怎么显示一个项目文件结构？ 为什么要显示 因为一个项目熟悉结构是基础 不然没发往下看别人的项目
 brew （homebrew）[homebrew官网](https://brew.sh/)
