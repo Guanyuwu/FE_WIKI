@@ -9,3 +9,35 @@
   - 学习oc基本语法、学习foundation里面的基本常用类型、学习常用ui组件
 
 > 长期目标：
+
+### markdown 语法
+
+### 1标题
+# 一级标题
+## 二级标题
+### 三级标题
+#### 四级标题
+##### 五级标题
+###### 六级标题
+
+### 2列表
+
+#### 2.1无序列表
+- js
+- css
+- html
+  - 嵌套的列表
+  - 嵌套的列表
+  
+#### 2.2有序列表
+- 1. www
+- 2. nnnn
+- 3. weqwe
+
+### 3链接
+
+#### 3.1不带title的链接
+这是[OC教程]（https://www.raywenderlich.com/tutorial-archive）
+
+### 3.2带title的链接
+这是[OC教程]（https://www.raywenderlich.com/tutorial-archive,"这是oc教程的链接"）
