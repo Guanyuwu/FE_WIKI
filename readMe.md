@@ -79,12 +79,12 @@ var a = new X({s:'ss'});
 ***加粗斜体啊***
 
 ### 8TODO List
-- []1js
-- []2vue
-- []3element-ui
-- []react
-- []node
-- [x]objective-c
-  - []基本语法
-  - [x]foundation.h
-  - [x]UIKit
+- [] 1js
+- [] 2vue
+- [] 3element-ui
+- [] react
+- [] node
+- [x] objective-c
+  - [] 基本语法
+  - [x] foundation.h
+  - [x] UIKit
