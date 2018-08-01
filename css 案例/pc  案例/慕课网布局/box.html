@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0}
+        .box{
+            width: 100px;
+            height: 120px;
+            border: solid 2px  pink;
+            margin: 1px 2px;
+            padding: 4px 3px;
+        }
+        .box2{
+            width: 110px;
+            height: 200px;
+            border: pink 3px dashed;
+            padding: 10px;
+        }
+        #w100{
+          height:300px;width: 70px;margin: 10px;padding: 5px;background-color: rebeccapurple;  
+        }
+        #demo1{
+            width: 200px;height: 100px;border: 1px solid red;margin-top: 10px; padding-left: 15px;
+        }
+
+        #fl1{
+            width: 100px;
+            height: 100px;
+            border: 1px solid #F00;
+            background-color: #ccff99;
+            float:left;
+            /* float:inherit; */
+        }
+        #fl2{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #00f;
+            background-color: #FF6;
+            float: left;
+        }
+        #box3{
+            width: 500px;
+            height: 500px;
+            border: 1px solid green;
+            background-color: pink;
+            clear: left;
+        }
+        #container{
+            width: 960px;
+            background-color: #ccffff;
+            /* height: 300px;  方法二 父元素定高 缺点不定高 */
+            padding: 10px;
+            overflow: hidden;
+        }
+        #container #left{
+            float: left;
+            width: 740px;
+            background-color: #c9f;
+            height: 500px;
+        }
+        #container #right{
+            float: left;
+            width: 210px;
+            background-color: #ffccff;
+            height: 500px;
+        }
+        .clearFix{
+            clear: both;
+        }
+        .list{
+            overflow: hidden;
+            background-color: #fff;
+            padding: 10px;
+            list-style: none;
+        }
+        .list .item{
+            float: left;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            color:black;
+            text-align: center;
+        }
+        .list .item a{
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .list .item a:hover{
+            background-color: #be3948;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        12123123123123
+        <!-- 控制内容与盒子的距离 padding -->
+    </div>
+    <!-- 盒子间距离 margin  -->
+    <div class="box2">
+        撒打算打算打算打算的
+    </div>
+
+    <!-- 给盒子设置了边框 填充 或者间距 而又不想改变整个盒子在页面中的总尺寸 那么就可以对应减少内容区域的大小 -->
+
+    <!-- 目标：这个盒子在页面中只占100px宽度  margin 10px padding 5px 那就要将宽度(内容宽度)设置为 100- 2*10 -2*5 = 70px -->
+    <div id="w100">
+
+    </div>
+
+    <div id="demo1">
+        hello world!
+    </div>
+
+
+
+    <!-- 浮动 块儿元素独占一行   float:none|right|left|inherit-->
+    <!-- 浮动的元素脱离文档流 不占据原来的位置 就像漂浮在元素上方 所以左浮动的时候 会在没有浮动元素的上面 -->
+    <!-- 如果给fl2 左浮动 两个的宽度不应该大于页面总宽度 不然还是会两行 -->
+    <div id="fl1">我是浮动的元素 不占据空间 所以在上面</div>
+    <div id="fl2">我是浮动的元素 不占据空间 所以在上面</div>
+
+    <div id="box3"></div>
+
+    <h3>清除浮动 clear:left在左侧不允许浮动|right在右侧不允许浮动|both两面都不允许浮动|none（默认值）允许浮动出现在两侧|inherit 允许从父元素继承clear属性的值</h3>
+
+
+    <h4>浮动实现两列布局</h4>
+    <ul>
+        <li>1父元素定高 缺点定高</li>
+        <li>2父元素内部最后一个元素添加 div 类名是.clearFix clear:both; 缺点多加dom元素</li>
+        <li>3 推荐 父元素不用加宽度 子元素指定高度后 父元素直接加 overflow：hidden 就能根据子元素自动撑开高度了</li>
+    </ul>
+    <div id="container">
+        <div class="" id="left">左侧</div>
+        <div id="right">右侧</div>
+        <!--方法1: 加标签 加类名 -->
+        <!-- <div class="clearFix"></div> -->
+    </div>
+
+    <h2>课程难度  ul>li*4>a[href="#"]{sss}</h2>
+    div+p+div   
+    div+div>p>span+em^bq  //bq和span em 平级 
+    <div></div>
+    <div>
+        <p>
+            <span><em></em></span>
+            <blockquote></blockquote>
+        </p>
+    </div> 
+    div+p+div   
+    div+div>p>span+em^^bq  //bq和p 平级  ^^ 再往上推的话就加^
+    <div></div>
+    <div>
+        <p><span></span><em></em></p>
+    </div>
+    <eq></eq>
+    <h2>课程难度 a标签是内联元素 无高度宽度属性 因此在鼠标经过改变背景色的时候 仅在有文字的地方显示背景颜色 宽度高度都不够 解决办法为 要设置为display：block </h2>
+    <ul class="list">
+        <li class="item"><a href="#">全部</a></li>
+        <li class="item"><a href="#">初级</a></li>
+        <li class="item"><a href="#">中级</a></li>
+        <li class="item"><a href="#">高级</a></li>
+    </ul> 
+    <script>
+        var div100 = document.getElementById('w100')
+        document.write('div100的宽是'+div100.offsetWidth)
+        document.write('   div100的高是'+div100.offsetHeight)
+        document.write('   div100的左边距离'+div100.offsetLeft)
+        document.write('   div100的距离顶部的距离是'+div100.offsetTop)
+
+        // 盒子在页面中所占的总宽度=左边距 + 左边框 + 左填充 + 宽度内容 + 右填充 + 右边框 + 右边距 组成
+        // 盒子在页面中所占的总高度=上边距 + 上边框 + 上填充 + 内容高度 + 下填充 + 下边框 + 下边距 组成
+    </script>
+
+
+</body>
+</html>

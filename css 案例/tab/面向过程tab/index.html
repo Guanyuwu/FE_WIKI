@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        ul>li {
+            float: left;
+            width: 100px;
+            text-align: center;
+            color: palevioletred;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .now {
+            color: paleturquoise;
+        }
+
+        .content {
+            display: none
+        }
+
+        .dis {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <marquee behavior="scroll" direction="left" scrollamount="3" scrolldelay="10" loop="-1">文字滚动——1文字滚动——2文字滚动——3</marquee>
+    <ul>
+        <li class="now">选项1</li>
+        <li>选项2</li>
+        <li>选项3</li>
+    </ul>
+    <div class="content dis">
+        选项1
+    </div>
+    <div class="content">
+        选项2
+    </div>
+    <div class="content">
+        选项3
+    </div>
+</body>
+<script>
+    // 面向过程实现
+    // var oUl = document.getElementsByTagName('ul')[0],
+    //     oLis = oUl.getElementsByTagName('li'),
+    //     oContents = document.getElementsByClassName('content')
+
+    //     for(var i=0; i<oLis.length; i++){
+    //         console.log(oLis[i].onclick)//是dom对象的一个属性 
+    //         console.log(oContents[i].style)//一个对象 里面有display属性
+    //         //给每个属性onclick加方法 
+    //         oLis[i].idx = i;//自定义属性 说白了就是给对象加一个key value   key是idx value是i
+
+    //         oLis[i].onclick= function(){
+    //             // alert(1)
+    //             // console.log(this)
+    //             // console.log(oLis)
+    //             // console.log(oContents)
+    //             //设置前清除所有 提到多个 就循环处理
+    //             for(var j=0;j<oLis.length; j++){
+    //                 oLis[j].className = ''
+    //                 oContents[j].style.display = 'none'
+    //             }
+    //             oLis[this.idx].className ='now'
+    //             oContents[this.idx].style.display ='block'
+    //         }            
+    //         // console.log(oLis[i] instanceof Object)//true
+    //     }
+    //     console.log(oLis)
+</script>
+<script>
+    //简单封装
+    var oUl = document.getElementsByTagName('ul')[0],
+        oLis = oUl.getElementsByTagName('li'),
+        oContents = document.getElementsByClassName('content')
+
+    function init() {
+        for (var i = 0; i < oLis.length; i++) {
+            oLis[i].idx = i;
+            oLis[i].onclick = clickHandler
+        }
+    }
+
+    function clickHandler() {
+        for (var j = 0; j < oLis.length; j++) {
+            oLis[j].className = ''
+            oContents[j].style.display = 'none'
+        }
+        // console.log(this)
+        this.className = 'now'
+        oContents[this.idx].style.display = 'block'
+    }
+
+    init()
+
+
+</script>
+
+<script>
+    //原始社会 设置一个个添加
+    var pop = {}
+    pop.name = 'sss'
+    pop.age = '23'
+    pop.sex = 'man'
+
+    //工厂函数 同一个模样
+    function fac() {
+        var pop ={}
+        pop.name = 'sss'
+        pop.age = '23'
+        pop.sex = 'man'
+        return pop
+    }
+
+    var per1 = fac()
+    var per2 =fac()
+    // console.log(per1 == per2)
+    // console.log(per1.name,per2.name)
+    // per1.name ='change'
+    // console.log(per1.name,per2.name)
+
+    //面向对象 父类 构造函数提供属性 构造函数的原型提供公有方法
+    function Person(name, age) {
+        this.name = name||'Pname'
+        this.age = age || 18
+        this.colors= ['red','blue','yellow']
+    }
+    // 1构造函数
+    Person.prototype.say = function(){
+        console.log("i come from Person's prototype 的 say")
+    }
+    Person.prototype.xxKey ='xxkey on Person prototype'
+
+    //1构造函数继承  缺点： 部分继承  只能继承父类属性  无法继承父类原形上面的方法和属性 为什么不能访问到呢 因为都没有通过原型链进行关联
+    function Coder(sex) {
+        Person.call(this, 'ss', '22')
+        this.sex = sex
+        console.log(this)
+    }
+
+    var coder1 = new Coder('man')
+    // l(coder1.say())
+    l(coder1.xxKey) // undedined
+    // console.log(coder1)
+    // console.log(coder1.name)
+    // console.log(coder1.age)
+    // console.log(coder1.sex)
+    // for (key in coder1) {
+    //     console.log(key, coder1[key])
+    // }
+
+    //2 构造函数加原型链 这样属性和方法都可以被实例访问到 缺点1 是父类有引用类型的时候 实例修改的这个引用的时候 会影响其他实例对这个属性的继承
+    function Tester(){
+        //加这个就可以解决  缺点1 是父类有引用类型的时候 实例修改的这个引用的时候 会影响其他实例对这个属性的继承 其实是在访问父类这个引用之前 在当前实例的构造函数内把属性初始化 而且多个实例test之间 每次都是new Test()它的构造函数 这样就隔离开了 不是多个实例访问实例对应类里面同一个引用了
+        Person.call(this)
+    }
+
+    Tester.prototype = new Person('zzz','33')//原型上有 Person 实例的属性和方法
+    // Tester.prototype.say =function(){
+    //     console.log('i am say in Tester class')
+    //     console.log(this.name)
+    // }
+    var test1 = new Tester()
+    var test2 = new Tester()
+    
+    // console.log(test1)
+    // console.log(test1.name)//对象访问属性或者方法的时候会在实例自身开始找 没有的话 到该实例对应类的原型上去找 
+    // console.log(test1.age)
+    // console.log(test1.say())//沿着原型链从对象实例向上查找 有对应的方法名 就停止向上查找
+    // console.log(test2.say())
+    // test1.say =function(){console.log('test1 say')}
+    // test2.say = function(){console.log('test2 say')}
+
+    // console.log(test1.say())
+    // console.dir(test1)
+    // console.log(test2.say())
+
+    function l(){
+        console.log.apply(console,arguments)
+    }
+
+    l(new Tester().say())
+
+    // var test1 = new Tester()
+    // var test2 = new Tester()
+    // l(test1.say(),test2.say())
+    // test1.say = function(){console.log('xxx')}
+    // l(test1.say(),test2.say())
+
+    //原型上面有属性是引用类型的时候 两个实例修改这个对象的时候的时候 注意    加不加这个的区别 Person.call(this)
+    // l(test1.colors)
+    // l(test2.colors)
+
+    // test1.colors.push('add by test 1 ')
+    // l(test1.colors)
+    // l(test2.colors)
+    // l(test1.xxKey)
+
+    //2.1 优化类被new 两次
+
+    function Child(){
+        Person.call(this)
+    }
+    Child.prototype = Person.prototype
+
+    var child1 = new Child()
+    var child2 = new Child()
+
+   /* // l(child1 instanceof Child) //true 无法区分是哪个类的实例
+    // l(child1 instanceof Person)//true
+    // l(child1.constructor)  输出后面的这个 ƒ Person(name, age) {
+        this.name = name||'Pname'
+        this.age = age || 18
+        this.colors= ['red','blue','yellow']
+    } 而不是Child*/
+
+    //2.2 优化 Object.create()
+    function Child2(){
+        Person.call(this);
+
+    }
+    Child2.prototype = Object.create(Person.prototype)
+
+    var child3 = new Child2()
+    var child4 = new Child2()
+    l(child1)
+    l(child3)
+    // l(child3,child4)
+    // l(child3 instanceof Child2)
+    // l(child3 instanceof Person)
+    // l(child3.constructor === Child2.prototype.constructor)
+    // l(child3.constructor)
+    // l(Child2.constructor)
+
+    // l(child1.constructor == child3.constructor)
+</script>
+
+</html>
