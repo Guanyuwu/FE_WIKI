@@ -89,6 +89,8 @@ var a = new X({s:'ss'});
   - [ ] foundation.h
   - [ ] UIKit
 
+- [x] vuex基本语法
+
 ### 怎么显示一个项目文件结构？ 为什么要显示 因为一个项目熟悉结构是基础 不然没发往下看别人的项目
 brew （homebrew）[homebrew官网](https://brew.sh/)
 用到的包 tree brew install tree
