@@ -36,6 +36,8 @@
       </span>
     </common-dialog>
 
+    <layout-nav></layout-nav>
+
     <!-- <dia  :show.sync="dialogCommonVisible"></dia> -->
     <!-- <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
             <span>这是一段信息</span>
@@ -68,6 +70,7 @@
 </template>
 <script>
 import CommonDialog from "../dialog/commonDialog.vue";
+import LayoutNav from "./layoutNav.vue"
 export default {
   name: "TestEle",
   data() {
@@ -104,7 +107,7 @@ export default {
       ]
     };
   },
-  components: { CommonDialog },
+  components: { CommonDialog ,LayoutNav },
   methods: {
     open() {
       this.dialogCommonVisible = true;
