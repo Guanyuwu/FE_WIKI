@@ -37,7 +37,19 @@
     </common-dialog>
 
     <layout-nav></layout-nav>
-
+    <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum, nam. Numquam culpa velit fugiat aliquam? Repellat adipisci natus explicabo, libero quo harum reprehenderit nostrum sint dolorum. Architecto minus velit accusamus.</h1>
+    <div class="components-container">
+      <code>Markdown is based on
+        <a href="https://github.com/sparksuite/simplemde-markdown-editor" target="_blank">simplemde-markdown-editor</a> ，Simply encapsulated in Vue.
+        <a target="_blank" href="https://segmentfault.com/a/1190000009762198#articleHeader14">
+          相关文章 </a>
+      </code>
+      <div class="editor-container">
+        <markdown-editor id="contentEditor" ref="contentEditor" v-model="content" :height="600" :zIndex="20"></markdown-editor>
+      </div>
+      <el-button @click="markdown2Html" style="margin-top:80px;" type="primary" icon="el-icon-document">To HTML</el-button>
+      <div v-html="html"></div>
+    </div>
     <!-- <dia  :show.sync="dialogCommonVisible"></dia> -->
     <!-- <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
             <span>这是一段信息</span>
@@ -71,10 +83,14 @@
 <script>
 import CommonDialog from "../dialog/commonDialog.vue";
 import LayoutNav from "./layoutNav.vue"
+import MarkdownEditor from '../editor/index.vue'
+
 export default {
   name: "TestEle",
   data() {
     return {
+      content: 'content',
+      html: '',
       dialogVisible: false,
       dialogCommonVisible: false,
       dialogCommonFormVisible: false,
@@ -107,7 +123,7 @@ export default {
       ]
     };
   },
-  components: { CommonDialog ,LayoutNav },
+  components: { CommonDialog ,LayoutNav,MarkdownEditor },
   methods: {
     open() {
       this.dialogCommonVisible = true;
@@ -132,6 +148,12 @@ export default {
     },
     saveFormDialog() {
       this.dialogCommonFormVisible = false;
+    },
+        markdown2Html() {
+      import('showdown').then(showdown => {
+        const converter = new showdown.Converter()
+        this.html = converter.makeHtml(this.content)
+      })
     }
   }
 };
