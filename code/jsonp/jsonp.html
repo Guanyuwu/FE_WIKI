@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jsonp</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+       // 实现一个jsonp 要四步 123前端实现 4 后端 server.js 里面实现
+        //1 定义回调方法 必须是全局函数 名字必须和后端约定好 一致 test
+        function test(data) {
+            alert(data.name);
+            document.body.innerHTML = data.name;
+        };
+
+        // var obj ={
+        //     //回调函数 不是全局的情况 测试 报错 Uncaught ReferenceError: test is not defined at jsonp?callback=test:1
+        //     test: function(data){
+        //         //服务端返回的数据格式 var data = {name:'123'};
+        //         alert(data.name);
+        //     }
+        // }
+        //2 动态创建script
+        function setScriptSrc(src) {
+            var scriptTag = document.createElement('script');
+            scriptTag.setAttribute('type', 'text/javascript');
+            scriptTag.src = src;
+            document.body.appendChild(scriptTag);
+        }
+        //3 执行
+        window.onload = function(){
+            var tempUrl = 'http://127.0.0.1:8080/jsonp?callback=test'
+            setScriptSrc(tempUrl);
+        }
+</script>
+</html>

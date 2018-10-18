@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #container{
+            -webkit-perspective: 1000px;
+            -webkit-perspective-origin:  50% 50%;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            background: rebeccapurple;
+
+        }
+    </style>
+</head>
+<body>
+ <div id="container">
+
+  <div id="box"></div>
+ </div>
+   
+   <div id="op">
+       <p>rotate X : <span id="degx-span">0</span></p>
+       <input type="range" min="-360" max="360" value="0" onchange="rotate()" id="rotatex">
+   </div>
+  
+</body>
+<script>
+    function rotate(){
+        var x = document.getElementById('rotatex').value;
+        var box = document.getElementById('box'),xSpan=document.getElementById('degx-span');
+        box.style.webkitTransform = 'rotateX('+x + 'deg)';
+        console.log(x);
+        xSpan.innerText = x;
+    }
+</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ol>
+        <li>声明和创建数组</li>
+        <li>输出数组长度</li>
+        <li>访问元素</li>
+        <li>迭代数组</li>
+        <li>添加元素</li>
+    </ol>
+    <script>
+
+        //假如有这样一个需求:保存所在城市每个月的平均温度
+
+        //用变量存 要声明多个变量
+        var averageTempJan = 31.9;
+        var averageTempFeb = 35.3;
+        var averageTempMar = 42.4;
+        var averageTempApr = 52;
+        var averageTempMay = 60.8;
+
+        //用数组存 只要一个变量 长度还可以扩展
+        var averageTemp = [];
+        averageTemp[0] = 31.9;
+        averageTemp[1] = 35.3;
+        averageTemp[2] = 42.4;
+        
+        // 创建和初始化数组的方式 字面量的方式 推荐
+        var daysOfWeek = new Array(); //{1}
+        var daysOfWeek = new Array(7); //{2}
+        var daysOfWeek = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'); //{3}
+
+        var daysOfWeek = ['Sunday','Monday','Thuesday','Wednesday','Thursday','Friday','Saturday'];
+        
+        //想知道数组长度？
+        console.log('daysOfWeek数组的长度是：'+daysOfWeek.length);
+        
+        //访问和迭代数组
+        for(var i =0; i< daysOfWeek.length; i++){
+            console.log(daysOfWeek[i]);
+        }
+        //添加元素
+        var numbers= [0,1,2,3];
+        //向数组末尾添加
+        numbers[numbers.length] = 4;
+        //或者
+        numbers.push('pushItem');
+        console.log(numbers);
+        
+        for(var i=numbers.length; i>=0; i--){
+            numbers[i] = numbers[i-1];
+        }
+        console.log(numbers);
+        numbers[0] = 'unshift';
+        //向数组首位添加
+        numbers.unshift(-1);
+        numbers.unshift(-2,-3)
+        console.log(numbers);
+        
+        //删除元素 pop
+        console.log(numbers.pop())
+
+        //指定位置删除数组元素
+        //第二个位置起  不包括第二个 删除三个元素
+        console.log(numbers);
+        numbers.splice(2,3);
+        console.log(numbers);
+
+        //指定位置插入元素 从第几个位置开始 包括第几个位置  插入若干个元素
+        numbers.splice(2,0,'s1','s2');
+        console.log(numbers);
+    </script>
+</body>
+
+</html>

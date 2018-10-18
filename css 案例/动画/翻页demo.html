@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #my3dspace {
+            -webkit-perspective: 800;
+            -webkit-perspective-origin: 50% 50%;
+
+            overflow: hidden;
+        }
+
+        #pagegroup {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+
+            -webkit-transform-style: preserve-3d;
+
+            position: relative;
+        }
+
+        .page {
+            position: absolute;
+            width: 360px;
+            padding: 20px;
+            background-color: black;
+            color: white;
+
+            font-weight: bold;
+            font-size: 360px;
+            text-align: center;
+            line-height: 360px;
+
+            font-family: '微软雅黑'
+        }
+
+        #op {
+            text-align: center
+        }
+
+        #page1 {
+            -webkit-transform-origin: bottom;
+            -webkit-transition: -webkit-transform 1s linear;
+        }
+
+        #page2,
+        #page3,
+        #page4,
+        #page5,
+        #page6 {
+            -webkit-transform-origin: bottom;
+            -webkit-transition: -webkit-transform 1s linear;
+
+            -webkit-transform: rotateX(90deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="my3dspace">
+        <div id="pagegroup">
+            <div class="page" id="page1">1</div>
+
+            <div class="page" id="page2">2</div>
+
+            <div class="page" id="page3">3</div>
+
+            <div class="page" id="page4">4</div>
+
+            <div class="page" id="page5">5</div>
+
+            <div class="page" id="page6">6</div>
+
+        </div>
+    </div>
+
+    <div id="op">
+        <a href="javascript:next()">next</a>
+        <a href="javascript:prev()">prev</a>
+    </div>
+</body>
+<script>
+    var curIndex = 1;
+    function next() {
+
+        if (curIndex == 6) { return };
+        //拿到当前页面
+        var curPage = document.getElementById("page" + curIndex);
+        //翻滚出屏幕了
+        curPage.style.webkitTransform = 'rotateX(-90deg)';
+
+        curIndex++;
+        //拿到下一个页面
+        var nextPage = document.getElementById("page" + curIndex);
+        nextPage.style.webkitTransform = 'rotateX(0)';
+    }
+
+    function prev() {
+        if (curIndex == 1) return;
+
+        //拿到当前页面
+        var curPage = document.getElementById("page" + curIndex);
+        //平躺在屏幕后面
+        curPage.style.webkitTransform = 'rotateX(90deg)';
+
+        curIndex--;
+        //拿到下一个页面
+        var prevPage = document.getElementById("page" + curIndex);
+        prevPage.style.webkitTransform = 'rotateX(0)';
+    }
+</script>
+
+</html>

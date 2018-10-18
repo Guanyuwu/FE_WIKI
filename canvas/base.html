@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <canvas width="1024" id='canvas' height="768" style="border:1px solid #aaa; display:block;margin:0 auto;"></canvas>
+</body>
+
+
+<script>
+
+    //canvas 默认是一个300*150的画布
+    window.onload = function(){
+        var canvas = document.getElementById('canvas');
+
+        // canvas.width = 800;
+        // canvas.height = 400;
+
+        var context = canvas.getContext('2d');
+
+
+
+        if(context){
+            //绘制 基于状态的 先描述状态 再填充 左上角 0,0 向右x 向下y 
+            //
+            context.moveTo(100,100);
+            context.lineTo(700,700);
+            context.lineTo(100,700);
+
+            context.lineTo(100,100);
+            // context.fillStyle ='rgb(2,100,300)'    
+            // context.fill();
+
+            context.lineWidth = 5;
+            context.strokeStyle = 'red'
+            context.stroke();
+
+            context.moveTo(200,100);
+            context.lineTo(700,600);
+            context.strokeStyle = 'yellow'
+            context.stroke()
+        }else{
+            alert('当前浏览器不支持 canvas, 请更换浏览器后再试')
+        }
+    }
+</script>
+</html>

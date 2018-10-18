@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function BinaryTree(){
+            //定义一个节点 三个属性 key 左 右节点；
+            var Node = function(key){
+                this.key= key;
+                this.left = null;
+                this.right = null;
+            };
+
+            //构造一个二叉树 第一个加入的就是根节点 再把构造的节点插入到根节点
+            var root = null;
+
+            var  insertNode = function(node ,newNode){
+                //新节点比老节点key小 就是左节点
+                 if(newNode.key < node.key){
+                    // 当前老节点是否有左子节点
+                       if(node.left == null){
+                           node.left = newNode;
+                       }else{
+                           insertNode(node.left,newNode);
+                       }
+                 } else{
+                     // 当前老节点是否有右子节点
+                      if(node.right == null){
+                          node.right = newNode;
+                      }else{
+                          insertNode(node.right,newNode);
+                      }
+                 }  
+            }
+            
+            this.insert = function(key){
+                var newNode = new Node(key);
+
+                if(root == null){
+                    root = newNode
+                }else{
+                    insertNode(root, newNode);
+                }
+            }
+
+            var inOrderTraverseNode = function(node,callback){
+                 if(node !== null){
+                     //先访问左子树 有左子树 会一直访问子左树
+                     inOrderTraverseNode(node.left,callback);
+                    //输出当前值
+                    callback(node.key);
+                    //访问右子树
+                    inOrderTraverseNode(node.right,callback);
+                 }
+            };    
+            //中序遍历  结果以升序方式打印出来  先访问当前节点的左子树 有的话一直访问左子树 然后输出子节点的key 没有的话 输出当前节点的key 有右子树 同理 左右子树以及自身 都输出了 就会返回根节点 再次递归访问根节点的右子树 直到都遍历完为止
+
+            this.inOrderTraverse = function(callback){
+                inOrderTraverseNode(root,callback);
+            }
+
+            var preOrderTraverseNode = function(node,callback){
+                if(node !== null){
+                    callback(node.key);
+                    preOrderTraverseNode(node.left,callback);
+                    preOrderTraverseNode(node.right,callback);
+                }
+            }    
+            //前序遍历 作用 复制一个新的二叉树 比重新构造一个二叉树效率高 当前节点的输出顺序 先打印当前节点 再子左树 再右子树
+            
+            this.preOrderTraverse = function(callback){
+                //遍历的起点都是根节点 无论是构造二叉树的时候 还是前序遍历的时候 这样有统一的入口
+                preOrderTraverseNode(root,callback);
+            };
+
+
+            var postOrderTraverseNode = function(node,callback){
+                if(node !== null){
+                    postOrderTraverseNode(node.right,callback);
+                    callback(node.key);
+                    postOrderTraverseNode(node.left, callback);
+                }
+            }
+
+            //后序遍历 用于文件 系统
+            this.postOrderTraverse = function(callback){
+                postOrderTraverseNode(root,callback);
+            }    
+            var minNode = function(node){
+                if(node){
+                    while(node && node.left){
+                        node = node.left;
+                    }
+                    return node.key;
+                }  
+            }
+            //查找 min
+            this.min = function(){
+                return minNode(root);
+            }
+
+            var maxNode = function(node){
+                if(node){
+                    while(node && node.right){
+                        node = node.right;
+                    }
+                    return node.key;
+                }
+            };    
+            //查找max
+            this.max = function(){
+                return maxNode(root);
+            }
+            var isInBinaryTreeNode = function(node,key){
+                if(!node){
+                    return false;
+                }
+                if(key < node.key){
+                    return isInBinaryTreeNode(node.left,key);
+                }else if(key > node.key){
+                    return isInBinaryTreeNode(node.right,key);
+                }else{
+                    return true;
+                }
+            }
+            this.isInBinaryTree = function(key){
+                return isInBinaryTreeNode(root,key);
+            }
+        }
+        
+
+        var nodes = [8,3,10,1,6,14,4,7,13];
+        var binaryTree = new BinaryTree();
+        nodes.forEach(function(key){
+            binaryTree.insert(key);
+        })
+
+        var cb = function(key){
+            console.log(key);
+        }
+        console.log('下面是中序遍历的结果');
+        
+        //中序遍历
+        binaryTree.inOrderTraverse(cb);
+
+        console.log('下面是前序遍历的结果');
+        //前序遍历
+        binaryTree.preOrderTraverse(cb);
+
+        console.log('下面是后序遍历的结果');
+        //后序遍历
+        binaryTree.postOrderTraverse(cb);
+
+        //最小值
+        console.log('binaryTree min is '+ binaryTree.min())
+
+        //最大值
+        console.log('binaryTree max is '+ binaryTree.max())
+
+        //判断一个值是否在二叉树里
+        console.log('7 在不在二叉树里'+binaryTree.isInBinaryTree(7))
+        console.log('77 在不在二叉树里'+binaryTree.isInBinaryTree(77))
+
+
+
+        
+    </script>
+</body>
+</html>

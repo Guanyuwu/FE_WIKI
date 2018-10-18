@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 40px;
+            height: 40px;
+            background-color: red;
+            margin-bottom:20px;
+            color: white;
+        }
+        div:hover{
+            width: 900px;
+        }
+
+        #bar1{
+            transition: width 2s linear ;
+        }
+        #bar2{
+            transition: width 2s ease;
+        }
+        #bar3{
+            transition: width 2s ease-in;
+        }
+        #bar4{
+            transition: width 2s ease-out;
+        }
+        #bar5{
+            transition: width 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="bar1">1 linear</div>
+    <div id="bar2">2 ease</div>
+    <div id="bar3">3 ease-in</div>
+    <div id="bar4">4 ease-out</div>
+    <div id="bar5">5 ease-in-out</div>
+ 
+</body>
+</html>
