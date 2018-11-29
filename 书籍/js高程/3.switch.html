@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num = 1
+
+        // switch(num){
+        //     case 25:
+        //     case 35:
+        //         alert('25 || 35');
+        //         break;
+        //     case '1': //会严格比较 不仅比较值 还比较类型
+        //        show(num)
+        //         break;
+        //     default :
+        //         console.log('default');
+        // }
+
+        // function show(a){
+        //     debugger
+        //     alert(a);
+
+        // }
+
+        //每个case 的值不一定是常量 可以使变量 甚至是表达式
+        switch('hello world'){
+            case "hello" + 'world':
+                alert("Greating was found");
+                break;
+            case "goodBye":
+                alert("Closing was found");
+                break;
+            default:
+                alert("unexpected message was found")
+        }
+
+        var num = 25 ;
+        switch(true){
+            case num < 0 :
+                alert('Less than 0');
+                break;
+            case num>=0 && num <=10:
+                alert("Between 0 and 10");
+                break;
+            case num > 10 && num <=20: 
+                alert('between 10 and 20');
+                break;
+            default : 
+                alert('More than 20')
+        }
+    </script>
+</body>
+</html>

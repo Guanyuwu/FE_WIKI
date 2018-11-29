@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            // toString.call(a) [object a的构造函数的名字]
+            //每一个function中都会有call方法和prototype属性
+            console.log(({}).toString.call([]))
+
+            console.log(window.toString())
+            // alert(window.constructor)
+
+            var obj ={
+                name:1,
+                sayName:function(){
+                    console.log(this.name)
+                }
+            }
+            var b = obj.sayName;
+            console.log(b());
+        </script>
+</body>
+</html>

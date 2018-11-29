@@ -77,6 +77,8 @@
             </span>
         </el-dialog> -->
 
+      
+
   </div>
 
 </template>
@@ -85,8 +87,15 @@ import CommonDialog from "../dialog/commonDialog.vue";
 import LayoutNav from "./layoutNav.vue"
 import MarkdownEditor from '../editor/index.vue'
 
+import logger from '../../js/errLogger.js'
+
+
 export default {
   name: "TestEle",
+  mounted(){
+
+      logger.addLog()
+  },
   data() {
     return {
       content: 'content',
